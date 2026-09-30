@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import django
+import os
 from django.utils.encoding import force_str
 django.utils.encoding.force_text=force_str
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=2%l3y3m@vhs(dxu#2leu!cncgh8gm(#_wm1p3()7$xagb19-e'
+SECRET_KEY = os.environ.get('tBV8hm8JpARzsV5B3FsKx1_uj-XSyCmm4jHVFYT-KdEM3d1Us5KWBsJFiQsl2_799jQ')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
