@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_SUCCESS,
@@ -17,10 +18,12 @@ import {
   PRODUCT_UPDATE_FAIL,
 } from "../constants/productConstants";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 export const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get("/api/products/");
+    const { data } = await axios.get(`${API_URL}/api/products/`);
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
@@ -40,7 +43,7 @@ export const listProducts = () => async (dispatch) => {
 export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/product/${id}`);
+    const { data } = await axios.get(`${API_URL}/api/product/${id}`);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data,

@@ -7,7 +7,7 @@ function ProductScreen({ product }) {
     <>
       <Card className="my-3 p-3 rounded">
         <Link to={`/products/${product._id}`}>
-          <Card.Img src={product.image} />
+          <Card.Img src={`${process.env.REACT_APP_API_URL}${product.image}`} />
         </Link>
 
         <Card.Body>
