@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import {
   Row,
   Col,
-  Image,
   ListGroup,
   Button,
   Card,
@@ -41,6 +40,8 @@ function CartScreen({ params }) {
     navigate("/checkout");
   };
 
+  console.log("CART ITEMS:", cartItems);
+
   return (
     <>
       <Row>
@@ -58,12 +59,14 @@ function CartScreen({ params }) {
                   <ListGroup.Item key={item.product}>
                     <Row>
                       <Col md={2}>
-                        <Image
-                          src={item.image}
-                          alt={item.productname}
-                          fluid
-                          rounded
-                        />
+                        {item.image && (
+                          <img
+                            src={`https://major-project-1-backend-sf6y.onrender.com/static/images/${item.image
+                              .split("/")
+                              .pop()}`}
+                            alt={item.name}
+                          />
+                        )}
                       </Col>
                       <Col md={3}>
                         <Link to={`/product/${item.product}`}>

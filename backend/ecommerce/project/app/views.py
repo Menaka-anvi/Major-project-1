@@ -157,6 +157,7 @@ def addOrderItems(request):
             order=order,
             name=product.name,
             price=i['price'],
+            qty=i['qty'],
             image=product.image.url
         )
 
@@ -277,13 +278,16 @@ def getUserProfile(request):
 @permission_classes([IsAuthenticated])
 def updateUserProfile(request):
     user=request.user
-    serializer=UserSerializerWithToken(user,many=False)
+    
     data=request.data
     user.first_name=data.get('fname',user.first_name)
     user.last_name=data.get('lname',user.last_name)
     if data.get('password'):
         user.password=make_password(data['password'])
     user.save()
+
+    serializer=UserSerializerWithToken(user,many=False)
+    
     return Response(serializer.data)
 
 

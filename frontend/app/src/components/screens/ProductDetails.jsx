@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import products from "../../products";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Button,
-  Card,
-  Form,
-} from "react-bootstrap";
+import { Row, Col, ListGroup, Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader";
 import Message from "../Message";
@@ -46,7 +38,14 @@ function ProductDetails({ params }) {
         ) : (
           <Row>
             <Col md={6}>
-              <Image src={product.image} alt={product.name} fluid />
+              {product.image && (
+                <Card.Img
+                  src={`https://major-project-1-backend-sf6y.onrender.com/static/images/${product.image
+                    .split("/")
+                    .pop()}`}
+                  alt={product.name}
+                />
+              )}
             </Col>
             <Col md={3}>
               <ListGroup variant="flush">

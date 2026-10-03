@@ -38,7 +38,7 @@ class UserSerializerWithToken(serializers.ModelSerializer):
     
     class Meta:
         model=User
-        fields=['id','_id','username','email','name','isAdmin','token']
+        fields=['id','_id','username','email','first_name','last_name','name','isAdmin','token']
 
     def get_name(self, obj):
         name = obj.first_name

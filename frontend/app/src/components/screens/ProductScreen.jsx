@@ -7,9 +7,12 @@ function ProductScreen({ product }) {
     <>
       <Card className="my-3 p-3 rounded">
         <Link to={`/products/${product._id}`}>
-          <Card.Img
-            src={`${process.env.REACT_APP_API_URL}/static${product.image}`}
-          />
+          {product.image && (
+            <Card.Img
+              src={`https://major-project-1-backend-sf6y.onrender.com/static/images/${product.image.split("/").pop()}`}
+              alt={product.name}
+            />
+          )}
         </Link>
 
         <Card.Body>

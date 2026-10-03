@@ -39,7 +39,6 @@ function ProductEditScreen({ params }) {
 
   useEffect(() => {
     if (product && product._id === Number(id)) {
-    } else {
       setName(product.name || "");
       setPrice(product.price || 0);
       setImage(product.image || "");
@@ -73,7 +72,7 @@ function ProductEditScreen({ params }) {
       };
 
       const { data } = await axios.post(
-        "/api/products/upload/",
+        "https://major-project-1-backend-sf6y.onrender.com/api/products/upload/",
         formData,
         config,
       );

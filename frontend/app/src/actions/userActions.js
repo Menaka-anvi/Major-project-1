@@ -37,7 +37,7 @@ export const signup = (fname, lname, email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/users/register/",
+      "https://major-project-1-backend-sf6y.onrender.com/api/users/register/",
       {
         fname: fname,
         lname: lname,
@@ -75,7 +75,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/users/login/",
+      "https://major-project-1-backend-sf6y.onrender.com/api/users/login/",
       {
         username: email,
         password: password,
@@ -116,11 +116,14 @@ export const listUsers = () => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
-    const { data } = await axios.get(`/api/users/getallusers/`, config);
+    const { data } = await axios.get(
+      `https://major-project-1-backend-sf6y.onrender.com/api/users/getallusers/`,
+      config,
+    );
 
     dispatch({
       type: USER_LIST_SUCCESS,
@@ -150,11 +153,14 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
-    const { data } = await axios.delete(`/api/users/delete/${id}/`, config);
+    const { data } = await axios.delete(
+      `https://major-project-1-backend-sf6y.onrender.com/api/users/delete/${id}/`,
+      config,
+    );
 
     dispatch({
       type: USER_DELETE_SUCCESS,
@@ -189,7 +195,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/users/update/${user._id}/`,
+      `https://major-project-1-backend-sf6y.onrender.com/api/users/update/${user._id}/`,
       user,
       config,
     );
@@ -225,11 +231,14 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
-    const { data } = await axios.get(`/api/users/${id}/`, config);
+    const { data } = await axios.get(
+      `https://major-project-1-backend-sf6y.onrender.com/api/users/${id}/`,
+      config,
+    );
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -259,12 +268,12 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
     const { data } = await axios.put(
-      `/api/users/profile/update/`,
+      `https://major-project-1-backend-sf6y.onrender.com/api/users/profile/update/`,
       user,
       config,
     );

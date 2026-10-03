@@ -115,7 +115,7 @@ export const userUpdateReducer = (state = { user: [] }, action) => {
       return state;
   }
 };
-export const userDetailsReducer = (state = { user: [] }, action) => {
+export const userDetailsReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return { loading: true, user: {} };

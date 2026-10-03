@@ -183,7 +183,8 @@ EMAIL_HOST_USER='menakasubramanian27@gmail.com'
 EMAIL_HOST_PASSWORD='duux tcoz awly vjpt'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
-EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+
 
 
 

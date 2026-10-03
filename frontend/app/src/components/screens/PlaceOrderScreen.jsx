@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Button, Row, Col, ListGroup, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../CheckoutSteps";
@@ -92,12 +92,19 @@ function PlaceOrderScreen() {
                       <ListGroup.Item key={index}>
                         <Row>
                           <Col md={1}>
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              fluid
-                              rounded
-                            />
+                            {item.image && (
+                              <img
+                                src={`https://major-project-1-backend-sf6y.onrender.com/static/images/${item.image
+                                  .split("/")
+                                  .pop()}`}
+                                alt={item.name}
+                                style={{
+                                  width: "80px",
+                                  height: "80px",
+                                  objectFit: "contain",
+                                }}
+                              />
+                            )}
                           </Col>
 
                           <Col>

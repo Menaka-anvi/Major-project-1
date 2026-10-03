@@ -24,6 +24,7 @@ function ProfileScreen() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  console.log("USER INFO:", userInfo);
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
 
   const {
@@ -33,7 +34,11 @@ function ProfileScreen() {
   } = userUpdateProfile;
 
   const ordersMyList = useSelector((state) => state.orderMyList);
-  const { loading: loadingOrders, error: errorOrders, orders } = ordersMyList;
+  const {
+    loading: loadingOrders,
+    error: errorOrders,
+    orders = [],
+  } = ordersMyList;
 
   useEffect(() => {
     if (!userInfo) {
@@ -41,14 +46,20 @@ function ProfileScreen() {
       return;
     }
 
-    if (!user || user._id !== userInfo._id) {
-      dispatch(getUserDetails(userInfo._id));
+    dispatch(getUserDetails(userInfo._id));
+
+    // Only customers need My Orders
+    if (!userInfo.isAdmin) {
       dispatch(listMyOrders());
-    } else {
-      setFname(user.first_name);
-      setLname(user.last_name);
     }
-  }, [dispatch, userInfo, user, navigate]);
+  }, [dispatch, navigate, userInfo?._id, userInfo?.isAdmin]);
+
+  useEffect(() => {
+    if (user) {
+      setFname(user.first_name || "");
+      setLname(user.last_name || "");
+    }
+  }, [user]);
 
   useEffect(() => {
     if (successUpdate) {
@@ -151,53 +162,58 @@ function ProfileScreen() {
         </Form>
       </Col>
 
-      <Col md={9}>
-        <h2>My Orders</h2>
-        {loadingOrders ? (
-          <Loader />
-        ) : errorOrders ? (
-          <Message variant="danger" onClose={handleClose}>
-            {errorOrders}
-          </Message>
-        ) : (
-          <Table striped responsive className="table-sm">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Paid</th>
-                <th>Delivered</th>
-                <th></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>Rs {order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button variant="light" className="btn-sm">
-                        Details
-                      </Button>
-                    </LinkContainer>
-                  </td>
+      {userInfo?.isAdmin && (
+        <Col md={9}>
+          <h2>My Orders</h2>
+          {loadingOrders ? (
+            <Loader />
+          ) : errorOrders ? (
+            <Message variant="danger" onClose={handleClose}>
+              {errorOrders}
+            </Message>
+          ) : (
+            <Table striped responsive className="table-sm">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Total</th>
+                  <th>Paid</th>
+                  <th>Delivered</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </Col>
+              </thead>
+
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order._id}>
+                    <td>{order._id}</td>
+                    <td>{order.createdAt.substring(0, 10)}</td>
+                    <td>Rs {order.totalPrice}</td>
+                    <td>
+                      {order.isPaid ? (
+                        order.paidAt.substring(0, 10)
+                      ) : (
+                        <i
+                          className="fas fa-times"
+                          style={{ color: "red" }}
+                        ></i>
+                      )}
+                    </td>
+                    <td>
+                      <LinkContainer to={`/order/${order._id}`}>
+                        <Button variant="light" className="btn-sm">
+                          Details
+                        </Button>
+                      </LinkContainer>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
+        </Col>
+      )}
     </Row>
   );
 }

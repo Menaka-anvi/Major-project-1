@@ -17,7 +17,7 @@ function ProductListScreen() {
   const navigate = useNavigate();
 
   const productsList = useSelector((state) => state.productsLists);
-  const { loading, error, products } = productsList;
+  const { loading, error, products = [] } = productsList;
 
   const productDelete = useSelector((state) => state.productDelete);
   const {

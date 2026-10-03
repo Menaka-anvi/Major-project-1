@@ -18,7 +18,7 @@ import {
   PRODUCT_UPDATE_FAIL,
 } from "../constants/productConstants";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = "https://major-project-1-backend-sf6y.onrender.com";
 
 export const listProducts = () => async (dispatch) => {
   try {
@@ -72,11 +72,15 @@ export const createProduct = () => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
-    const { data } = await axios.post(`/api/products/create/`, {}, config);
+    const { data } = await axios.post(
+      `${API_URL}/api/products/create/`,
+      {},
+      config,
+    );
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
       payload: data,
@@ -105,12 +109,12 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
     const { data } = await axios.put(
-      `/api/products/update/${product._id}/`,
+      `${API_URL}/api/products/update/${product._id}/`,
       product,
       config,
     );
@@ -142,11 +146,14 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
-    const { data } = await axios.delete(`/api/products/delete/${id}/`, config);
+    const { data } = await axios.delete(
+      `{API_URL}/api/products/delete/${id}/`,
+      config,
+    );
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
       payload: data,
