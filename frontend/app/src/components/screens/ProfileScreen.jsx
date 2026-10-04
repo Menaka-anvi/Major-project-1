@@ -52,7 +52,7 @@ function ProfileScreen() {
     if (!userInfo.isAdmin) {
       dispatch(listMyOrders());
     }
-  }, [dispatch, navigate, userInfo?._id, userInfo?.isAdmin]);
+  }, [dispatch, navigate, userInfo]);
 
   useEffect(() => {
     if (user) {
