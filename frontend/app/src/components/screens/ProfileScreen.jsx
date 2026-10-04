@@ -162,7 +162,7 @@ function ProfileScreen() {
         </Form>
       </Col>
 
-      {userInfo?.isAdmin && (
+      {!userInfo?.isAdmin && (
         <Col md={9}>
           <h2>My Orders</h2>
           {loadingOrders ? (

@@ -150,13 +150,9 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(
-      `{API_URL}/api/products/delete/${id}/`,
-      config,
-    );
+    await axios.delete(`${API_URL}/api/products/delete/${id}/`, config);
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
-      payload: data,
     });
   } catch (error) {
     dispatch({

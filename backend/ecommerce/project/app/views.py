@@ -85,7 +85,7 @@ def registerUser(request):
         message=render_to_string(
             "activate.html",{
                 'user':user,
-                'domain':'127.0.0.1:8000/',
+                'domain':'major-project-1-backend-sf6y.onrender.com/',
                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                 'token':generate_token.make_token(user)
             }
@@ -287,7 +287,7 @@ def updateUserProfile(request):
     user.save()
 
     serializer=UserSerializerWithToken(user,many=False)
-    
+
     return Response(serializer.data)
 
 
